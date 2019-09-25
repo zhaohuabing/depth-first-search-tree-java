@@ -9,11 +9,23 @@ import static org.junit.Assert.assertEquals;
 public class TreeTest {
   /** Rigorous Test :-) */
   @Test
-  public void testBFS() {
+  public void testBFSRecursion() {
     Tree tree = this.constructTree();
     List<Node> result = new ArrayList<Node>();
-    tree.depthFirstSearch(tree.root, result);
+    tree.depthFirstSearchRecursion(tree.root, result);
     System.out.println(result);
+    checkResult(result);
+  }
+
+  @Test
+  public void testBFSStack() {
+    Tree tree = this.constructTree();
+    List<Node> result = tree.depthFirstSerarchStack(tree.root);
+    System.out.println(result);
+    checkResult(result);
+  }
+
+  private void checkResult(List<Node> result) {
     assertEquals(result.get(0).getName(), "A");
     assertEquals(result.get(1).getName(), "B");
     assertEquals(result.get(2).getName(), "C");
@@ -41,17 +53,7 @@ public class TreeTest {
   }
 
   /**
-   * Create a tree for testing
-   *           A
-   *          /|\
-   *         / | \
-   *        B  C  D
-   *          /\   \
-   *         /  \   \
-   *        E    F   G
-   *                 /\
-   *                /  \
-   *               H    I
+   * Create a tree for testing A /|\ / | \ B C D /\ \ / \ \ E F G /\ / \ H I
    *
    */
   private Tree constructTree() {

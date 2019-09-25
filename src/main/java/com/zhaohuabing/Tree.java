@@ -10,15 +10,28 @@ public class Tree {
     this.root = root;
   }
 
-  public void depthFirstSearch(Node node, List<Node> result) {
+  public void depthFirstSearchRecursion(Node node, List<Node> result) {
     result.add(node);
     if (!node.hasChild()) {
       return;
     }
     List<Node> children = node.getChildren();
     for (int i = 0; i < children.size(); i++) {
-      depthFirstSearch(children.get(i), result);
+      depthFirstSearchRecursion(children.get(i), result);
     }
+  }
+
+  public List<Node> depthFirstSerarchStack(Node root) {
+    List<Node> result = new ArrayList<Node>();
+
+    List<Node> stack = new ArrayList<Node>();
+    stack.add(0, root);
+    while (stack.size() > 0) {
+      Node currentNode = stack.remove(0);
+      result.add(currentNode);
+      stack.addAll(0, currentNode.getChildren());
+    }
+    return result;
   }
 }
 
